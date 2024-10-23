@@ -1,0 +1,33 @@
+const field1 = getFieldById("customfield_10351");
+const field2 = getFieldById("customfield_10263");
+
+const field1 = getFieldById("customfield_10351");
+const field2 = getFieldById("customfield_10263");
+
+// Hide the field by default
+field1.setVisible(false);
+field2.setVisible(false);
+
+// Get the user's account information
+const res = await makeRequest("/rest/api/2/myself");
+console.log("account : ", res);
+
+const accountId = res.body.accountId;
+const projectKey = "OSND"; // Replace with your project key
+
+// Get the user's project roles for the specific project
+const getUserRoles = await makeRequest(`/rest/api/3/project/${projectKey}/role`);
+const roles = getUserRoles.filter(role => role.actors.some(actor => actor.actorUser.accountId === accountId));
+console.log("roles : ", roles);
+
+const developerRole = "Developer";
+
+const userRoles = Object.values(rolesResponse.body).map(role => role.name);
+console.log("user roles: ", userRoles);
+
+const developerRole = "Developer";
+// Display the fields if the user is NOT in the Developer role
+if (!roles.some(role => role.name === developerRole)) {
+  field1.setVisible(true);
+  field2.setVisible(true);
+}
