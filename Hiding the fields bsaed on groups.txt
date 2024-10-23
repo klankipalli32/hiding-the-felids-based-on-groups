@@ -1,0 +1,22 @@
+onst field1 = getFieldById("customfield_10351")
+const field2 = getFieldById("customfield_10263")
+
+// Hide the field by default
+field1.setVisible(false)
+field2.setVisible(false)
+
+const res = await makeRequest("/rest/api/2/myself");
+console.log("account : ",res)
+
+const accountId = res.body.accountId
+const getGroup = await makeRequest('/rest/api/3/user/groups?accountId='+ accountId);
+const groupNames = getGroup.body.map(({ name }) => name);
+console.log("group name : ",groupNames)
+
+const groups = "Banned";
+
+// Display the field if the user is part of administrators
+if (groupNames.includes(groups)){
+    field1.setVisible(true)
+    field2.setVisible(true)
+}
