@@ -1,4 +1,4 @@
-onst field1 = getFieldById("customfield_10351")
+const field1 = getFieldById("customfield_10351")
 const field2 = getFieldById("customfield_10263")
 
 // Hide the field by default
